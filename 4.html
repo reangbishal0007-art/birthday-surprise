@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Celebration 🎆</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    font-family:'Segoe UI', sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:linear-gradient(135deg,#000428,#004e92);
+    color:white;
+}
+
+canvas{
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.content{
+    position:relative;
+    z-index:2;
+    padding:20px;
+}
+
+h1{
+    font-size:24px;
+    animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+    from{ text-shadow:0 0 10px #ff4e50; }
+    to{ text-shadow:0 0 25px #ffccff,0 0 40px #ff4e50; }
+}
+
+button{
+    margin-top:25px;
+    padding:14px 30px;
+    border:none;
+    border-radius:30px;
+    font-size:16px;
+    cursor:pointer;
+    background:linear-gradient(45deg,#ff4e50,#ff9a9e);
+    color:white;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 20px #ff4e50;
+}
+
+@media(max-width:600px){
+    h1{
+        font-size:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fireworks"></canvas>
+
+<div class="content">
+    <h1>
+        Good 😍 That's My Girl 💖 <br>
+        You Solved The Beautiful Pieces Perfectly ✨
+    </h1>
+
+    <button onclick="window.location.href='5.html'">
+        Hehe 😌 Click here
+    </button>
+</div>
+
+<script>
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+
+function random(min,max){
+    return Math.random()*(max-min)+min;
+}
+
+function createFirework(){
+    let x=random(100,canvas.width-100);
+    let y=random(100,canvas.height/2);
+
+    for(let i=0;i<60;i++){
+        particles.push({
+            x:x,
+            y:y,
+            angle:Math.random()*2*Math.PI,
+            speed:random(2,6),
+            radius:2,
+            life:100,
+            color:`hsl(${random(0,360)},100%,50%)`
+        });
+    }
+}
+
+function animate(){
+    requestAnimationFrame(animate);
+    ctx.fillStyle="rgba(0,0,0,0.2)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach((p,index)=>{
+        p.x+=Math.cos(p.angle)*p.speed;
+        p.y+=Math.sin(p.angle)*p.speed;
+        p.life--;
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+        ctx.fillStyle=p.color;
+        ctx.fill();
+
+        if(p.life<=0){
+            particles.splice(index,1);
+        }
+    });
+}
+
+setInterval(createFirework,1000);
+animate();
+</script>
+
+</body>
+</html>

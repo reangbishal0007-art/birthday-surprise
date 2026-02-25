@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Final Surprise 🎉</title>
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    background: linear-gradient(135deg,#ff9ec3,#ffb3e6);
+    font-family:'Segoe UI', sans-serif;
+    color:white;
+    overflow:hidden;
+    text-align:center;
+}
+
+.message{
+    font-size:2rem;
+    margin:10px 0;
+    opacity:0;
+    transition:1s ease;
+    text-shadow: 2px 2px 10px #ff3399;
+}
+
+.big{
+    font-size:3rem;
+    font-weight:bold;
+    text-shadow: 3px 3px 15px #ff0055;
+}
+
+.heart{
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:red;
+    transform:rotate(-45deg);
+    animation:floatUp 5s linear infinite;
+}
+.heart::before,.heart::after{
+    content:"";
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:red;
+    border-radius:50%;
+}
+.heart::before{ top:-10px; left:0;}
+.heart::after{ top:0; left:10px;}
+@keyframes floatUp{
+    0%{transform:translateY(100vh) rotate(-45deg); opacity:1;}
+    100%{transform:translateY(-10vh) rotate(-45deg); opacity:0;}
+}
+</style>
+</head>
+<body>
+
+<div id="msg1" class="message">And ha, once again</div>
+<div id="msg2" class="message big">HAPPY BIRTHDAY ANYO</div>
+<div id="msg3" class="message">I LOVE YOU 3000 💖........</div>
+
+<script>
+// Floating hearts generator
+function createHearts(){
+    setInterval(()=>{
+        let heart=document.createElement("div");
+        heart.className="heart";
+        heart.style.left=Math.random()*100+"vw";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),5000);
+    },400);
+}
+
+createHearts();
+
+// Show messages in sequence
+function showMessage(id, delay){
+    setTimeout(()=>{
+        document.getElementById(id).style.opacity=1;
+    }, delay);
+}
+
+// Sequence of messages
+showMessage("msg1", 500);      // first message after 0.5s
+showMessage("msg2", 2500);     // big birthday message after 2s
+showMessage("msg3", 5000);     // final "I LOVE YOU 3000" after 5s
+</script>
+
+</body>
+</html>
